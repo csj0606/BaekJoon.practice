@@ -1,13 +1,19 @@
-n,m = map(int, input().split())
+import sys
 
-_dict={}
-for i in range(n):
-    #dict 안에 번호:이름, 이름:번호로 포켓몬 저장
-    name=input()
-    _dict[i]=name
-    _dict[name]=i+1
+input = sys.stdin.readline
 
-    #입력받은 이름or번호 키값에 해당하는 value값 출력
-for _ in range(m):
-    cnt = input()
-    print(_dict[cnt])
+n, m = map(int, input().split())
+
+dict = {}
+
+for i in range(1, n + 1):
+    a = input().rstrip()
+    dict[i] = a
+    dict[a] = i
+
+for i in range(m):
+    quest = input().rstrip()
+    if quest.isdigit():
+        print(dict[int(quest)])
+    else:
+        print(dict[quest])
