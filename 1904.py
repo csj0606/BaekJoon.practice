@@ -3,9 +3,10 @@ dp=[0]*1000001
 dp[0]=1
 dp[1]=1
 def func(n):
-    if dp[n]:
-        return dp[n]
-    dp[n]=func(n-1)+func(n-2)
+    if n==1:
+        return 1
+    for i in range(2,n+1):
+        dp[i]= (dp[i-1]+dp[i-2])%15746
     return dp[n]
-    
-print(func(n)%15746)
+        
+print(func(n))
