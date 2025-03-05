@@ -1,0 +1,15 @@
+"""
+
+map(int, input().split())
+list 형태로 주어지는 문제의 제시값을 list 형태로 받을 경우 사용하는 코드
+
+for i in range(list)
+for _ in range(list)
+
+기본적인 for 루프문의 형태
+
+
+
+
+
+"""
