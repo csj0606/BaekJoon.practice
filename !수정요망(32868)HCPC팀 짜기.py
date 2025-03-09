@@ -4,58 +4,37 @@
 3. 2명의 서로 원하는 조합 구하기 * 아무나 괜찮은 사람
 4. 1+2+3 %10^9+7 구하기
 """
+
 import sys
 input = sys.stdin.readline
 
 n= int(input())
 arr=list(map(int,input().split()))
 arr.insert(0,0)
-result = 0
-
-selfnode = [[] for _ in range(n+1)]
-secondnode = []
+graph = [[[],[]] for _ in range(n+1)]
 for i in range(1,n+1):
-    if arr[i]==i:
-        selfnode.append([i])
+    graph[i][0].append(arr[i]) #포인터 값
+    graph[arr[i]][1].append(i) #포인터 된 값
+node1 = 0 
+c1,c2,c3,c4,c5,c6,c7 = 0,0,0,0,0,0,0
 for i in range(1,n+1):
-    if i!=arr[i] and len(selfnode[arr[i]])>0:
-        selfnode[arr[i]].append(i)
+    if i in graph[i][0] and i in graph[i][1]: #재귀노드 개수
+        node1+=1
 for i in range(1,n+1):
-    if i!=arr[i] and arr[arr[i]]==i and arr[i]>i:
-        secondnode.append(i)
-        secondnode.append(arr[i])
-snc = 0
-for i in range(len(selfnode)):
-    snc += len(selfnode[i])
-if snc>2:
-    case1 = int(snc*(snc-1)*(snc-2)/6)
-    result+=(case1)%(10**9+7)
-if snc>1:
-    case2=0
-    for i in range(1,n+1):
-        if len(selfnode[i])>1:
-            case2+=(len(selfnode[i])-1)*snc
-    result+=(case2)%(10**9+7)
-if snc>0:
-    case3,case4,case5=0,0,0
-    for i in range(1,n+1):
-        if len(selfnode[i])>2:
-            tmp = len(selfnode[i])
-            case3+= int(tmp*(tmp-1)/2)
-        if len(selfnode[arr[i]])==0 and arr[i] in selfnode[arr[arr[i]]]:
-            case5+=1
-    if len(secondnode)>0:
-        case4 = int((snc)*(len(secondnode)/2))
-    result+=(case3+case4+case5)%(10**9+7)
-if len(secondnode)>0:
-    case7=0
-    for i in range(1,n+1):
-            if arr[i] in secondnode and i not in secondnode:
-                case7+=1
-    result+=(case7)%(10**9+7)
-case6=0
-for i in range(1,n+1):
-    if i!=arr[i] and arr[arr[arr[i]]]==i:
-        case6+=1
-result+=(case6)%(10**9+7)
-print((result)%(10**9+7))
+    if i in graph[i][0] and i in graph[i][1]:
+        x = len(graph[i][1])
+        if x>2:
+            c1 += int((x*(x-1)/2)%(10**9+7)) # abc-> aaa 경우
+        if x>1:
+            c2 += int(((x-1)*(node1-1))%(10**9+7)) # abc-> abb 경우
+    if i != arr[i]:
+        if i == arr[arr[i]]:
+            c3 += node1/2 #abc -> acb 경우
+            c4 += (len(graph[i][1])-1)%(10**9+7) #abc-> bcb 경우
+        if arr[arr[i]] == arr[arr[arr[i]]]:
+            c5 += 1 #abc -> aab 경우
+        if i == arr[arr[arr[i]]]:
+            c6 += 1/3 #abc -> bca 경우
+if node1>2:
+    c7 = int((node1*(node1-1)*(node1-2)/6)%(10**9+7)) #abc-> abc 경우
+print(int((c1+c2+c3+c4+c5+c6+c7))%(10**9+7))
