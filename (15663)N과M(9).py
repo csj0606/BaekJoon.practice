@@ -1,16 +1,19 @@
-n , m = map(int,input().split())
-arr = list(map(int,input().split()))
-
 def backtracking(depth):
+    check = 0
     if depth == m:
-        cur = ''.join(map(str,box))
-        if cur not in  result:
-            result.append(cur)
-        return 0
+        print(*box)
+        return
     for i in range(n):
-        box.append(arr[i])
-        backtracking(depth+1)
-        box.del
+        if check!= arr[i] and not visited[i]:
+            visited[i] = 1
+            box.append(arr[i])
+            check = arr[i]
+            backtracking(depth + 1)
+            visited[i] = 0
+            box.pop()
 
+n, m = map(int, input().split())
+arr = sorted(map(int, input().split()))  # 정렬 추가
 box = []
-result = []
+visited = [0] * n
+backtracking(0)
