@@ -44,8 +44,6 @@ def dfs(idx,cnt):
             dfs(i+1,cnt+1)
             visited[i]=False
 
-
-
 dfs(0,0)
 
 print(min_ans)
