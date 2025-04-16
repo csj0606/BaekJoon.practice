@@ -23,6 +23,8 @@ def dfs(x, y, tmp, cnt):
         dfs(nx, ny, tmp+graph[ny][nx], cnt+1)
         visited[ny][nx] = False # 방문처리 제거
 
+
+
 # ㅗ 모양 탐색
 def fy(x, y):
     global maximum
