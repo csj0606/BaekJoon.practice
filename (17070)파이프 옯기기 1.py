@@ -16,4 +16,3 @@ while que:
         else:
             graph[cur[1]][cur[2]+1] += graph[cur[1]][cur[2]]
             que.append([1,cur[1],cur[2]])
-wile
